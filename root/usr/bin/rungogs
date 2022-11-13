@@ -1,0 +1,14 @@
+#!/bin/bash
+
+export USER_ID=$(id -u)
+
+echo $USER_ID
+
+export NSS_WRAPPER_PASSWD=${HOME}/passwd
+export NSS_WRAPPER_GROUP=/etc/group
+export PORT=3000
+
+cp /home/git/gogs/custom/default/app.ini /home/git/gogs/custom/conf
+sed -i -r "s/^(RUN_USER =).*/\1 $USER_ID/" /home/git/gogs/custom/conf/app.ini
+
+/home/git/gogs/gogs web
