@@ -238,7 +238,7 @@ objects:
     - name: "${GOGS_VERSION}"
       from:
         kind: DockerImage
-        name: quay.io/fernandoreb/gogs:${GOGS_VERSION}
+        name: image-registry.openshift-image-registry.svc:5000/${NAMESPACE_IMAGE}/git-gogs:latest
       importPolicy: {}
       annotations:
         description: The Gogs git server docker image
@@ -290,7 +290,7 @@ objects:
       ROOT = /home/git/data/repositories
 
       [server]
-      ROOT_URL=http://${HOSTNAME}
+      ROOT_URL=http://${HOSTNAME}/
       SSH_DOMAIN=${HOSTNAME}
 
       [security]
@@ -309,6 +309,10 @@ parameters:
 - description: 'Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>'
   name: HOSTNAME
   required: true
+- description: Name of namespace image on local registry
+  name: NAMESPACE_IMAGE  
+  required: true
+  value: git
 - description: Volume space available for data, e.g. 512Mi, 2Gi
   name: GOGS_VOLUME_CAPACITY
   required: true
