@@ -260,6 +260,7 @@ objects:
 
       [server]
       DOMAIN=${HOSTNAME}
+      EXTERNAL_URL = https://${HOSTNAME}
 
       [security]
       INSTALL_LOCK = ${INSTALL_LOCK}
